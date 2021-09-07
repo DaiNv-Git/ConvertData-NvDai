@@ -1,0 +1,38 @@
+<div class="main">
+    <h1>Nguyễn Văn Đại ProjectTest</h1>
+    <b>chose Data :</b><br>
+    <form class="example-form">
+        <div class="left">
+    <mat-form-field [style.width.px]=327>
+        <mat-label>Data</mat-label>
+        <mat-select >
+            <p *ngFor="let data of arrData">
+            <mat-option value="{{data.name}}">{{data.name}} -> {{data.to}}</mat-option>
+        </p>
+        </mat-select>
+    </mat-form-field >  <br>
+    <b>Enter Input:</b><br>
+        <mat-form-field [style.width.px]=327>
+            <mat-label>Input</mat-label>
+            <input matInput  [(ngModel)]="showdata" >
+       
+        </mat-form-field> 
+    </div>
+    <button mat-button color="white" style="background-color:blue;">convert</button>
+   <div class="right">
+    <mat-form-field [style.width.px]=327>
+        <mat-label>Data</mat-label>
+        <mat-select >
+            <p *ngFor="let base of Base64">
+            <mat-option value="{{base.name}}">{{base.name}} -> {{base.to}}</mat-option>
+        </p>
+        </mat-select>
+    </mat-form-field >  <br>
+  
+        <mat-form-field [style.width.px]=327>
+            <mat-label>OutPut</mat-label>
+            <input matInput  value="{{showdata}}">
+        </mat-form-field> 
+   </div>
+</form>
+</div>
