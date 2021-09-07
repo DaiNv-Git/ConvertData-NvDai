@@ -1,0 +1,167 @@
+<div class="container" id="main-container" style="margin-top: 100px;">
+    <form class="form-inline my-2 my-lg-0">
+        <input #key="ngModel" ngModel type="search" (ngModelChange)="search(key.value)"  name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search" required>
+     </form>
+     <br>
+     <br>
+     <!-- <h2>Top {{hotbook}} sách bán chạy</h2> -->
+     <!-- <button class="btn btn-primary"  (click)="getlistmovie()">Load Data</button> -->
+    <table class="table table-striped table-hover table-bordered" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Stt</th>
+                <th>Tiêu Đề</th>
+                <th>Đạo Diễn</th>
+                <th>Diễn Viên</th>
+                <th>Ngày Quay</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let v of movie;let i =index;">
+                <td>{{v.id}}</td>
+                <td>{{v.title}}</td>
+                <td>{{v.director}}</td>
+                <td>{{v.cast}}</td>
+                <td>{{v.releaseDate | date}}</td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" (click)="intit(i)">Edit</button>
+                    &nbsp;
+                    <button class="btn btn-danger" (click)="deletebook(v.id)" >Delete</button>
+                </td>
+            </tr>
+            <tr *ngIf="movie.length==0">
+                <td colspan="6">Không có dữ liệu</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Add New Book</button>
+
+
+  
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Book</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #addmovie="ngForm" (ngSubmit)="addnewmove(addmovie)">
+                    <table class="table table-hover ">
+                        <tr>
+                            <td>
+                                <label for="idma">Mã Phim</label>
+                            </td>
+                            <td>
+                                <input type="text" name="id" ngModel id="idma" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idtieude">Tiêu Đề Phim</label>
+                            </td>
+                            <td>
+                                <input type="text" name="title" ngModel id="idtieude" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="iddao">Đạo Diễn</label>
+                            </td>
+                            <td>
+                                <input type="text" name="director" ngModel id="iddao" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idcast">Diễn Viên</label>
+                            </td>
+                            <td>
+                                <input type="text" name="cast" ngModel id="idcast" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idngay">Ngày Quay</label>
+                            </td>
+                            <td>
+                                <input type="date" name="releaseDate" ngModel id="idngay" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="addnewmovie" >Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Edit ------->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Book</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <table class="table table-hover ">
+                        <tr>
+                            <td>
+                                <label for="idma">Mã Phim</label>
+                            </td>
+                            <td>
+                                <input type="text" name="id" [(ngModel)]="edit_movie.id" id="idma" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idtieude">Tiêu Đề Phim</label>
+                            </td>
+                            <td>
+                                <input type="text" name="title" [(ngModel)]="edit_movie.title" id="idtieude" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="iddao">Đạo Diễn</label>
+                            </td>
+                            <td>
+                                <input type="text" name="director" [(ngModel)]="edit_movie.director" id="iddao" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idcast">Diễn Viên</label>
+                            </td>
+                            <td>
+                                <input type="text" name="cast" [(ngModel)]="edit_movie.cast" id="idcast" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="idngay">Ngày Quay</label>
+                            </td>
+                            <td>
+                                <input type="date" name="releaseDate" [(ngModel)]="edit_movie.releaseDate" id="idngay" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="editMovie()" >Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
